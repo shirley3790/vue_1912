@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>双向数据绑定</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 双花括号的形式，单向数据渲染 -->
+        <p>{{ msg }}</p>
+        <!-- v-model里面相当于给表单设置value值,双向数据绑定 v：view 视图层;表单才能用v-model -->
+        <input type="text" v-model="msg">
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+        v-model使用对象：表单
+            * text
+            * password
+            * checkbox
+            * radio
+            * select
+            * time
+            * email
+    */
+    //实例化app对象
+    let app = new Vue({
+        el: '#app',//el 放挂载对象,里面写的是选择器,不能挂载在html和body节点上
+        data: {//放数据的地方 m：model数据层  m-v
+            msg: '准备新年到，新年新气象666'
+        },
+        methods: {
+
+        }
+    });
+
+</script>
+
+</html>

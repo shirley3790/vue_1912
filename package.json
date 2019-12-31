@@ -1,0 +1,22 @@
+{
+  "name": "vue_1912",
+  "version": "1.0.0",
+  "description": "代码留存",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shirley3790/vue_1912.git"
+  },
+  "author": "malin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shirley3790/vue_1912/issues"
+  },
+  "homepage": "https://github.com/shirley3790/vue_1912#readme",
+  "dependencies": {
+    "vue": "^2.6.10"
+  }
+}

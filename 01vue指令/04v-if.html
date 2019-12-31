@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-if的使用</title>
+    <style>
+        .con {
+            width: 200px;
+            height: 200px;
+            background: red;
+            margin-bottom: 10px;
+        }
+
+        .green {
+            width: 200px;
+            height: 200px;
+            background: green;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="下拉菜单1" @click="change()">
+        <!-- v-if是创建和删除元素  v-if和v-else中间不要隔开否则报错 -->
+        <div class="con" v-if="isok1"></div>
+        <div class="green" v-else></div><br>
+
+        <input type="button" value="下拉菜单2" @click="change2()">
+        <!-- v-show显示和隐藏 -->
+        <div class="con" v-show="isok2"></div>
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+        v-if:创建和删除元素
+        v-show:显示和隐藏元素
+        结论：如果需要频频的显示隐藏元素，建议v-show性能更好
+    */
+
+
+    //实例化app对象
+    let app = new Vue({
+        el: '#app',//el 放挂载对象,里面写的是选择器,不能挂载在html和body节点上
+        data: {//放数据的地方
+            isok1: false,
+            isok2: false
+        },
+        methods: {//methods存放方法的地方
+            change() {
+                console.log('点击按钮1');
+                console.log(this.isok1);//this指的是app实例
+                this.isok1 = !this.isok1;
+            },
+            change2() {
+                this.isok2 = !this.isok2;
+            }
+        }
+    });
+
+</script>
+
+</html>
