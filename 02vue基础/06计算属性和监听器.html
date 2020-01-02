@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算属性和监听器</title>
+</head>
+
+<body>
+    <div id="app">
+        数学：<input type="text" v-model="math">
+        语文：<input type="text" v-model="chinese"><br>
+        <!-- 用v-model实现数据的监听:普通方法 -->
+        总分(单向)：<input type="text" v-model="total()"><br>
+        <!-- 用计算属性实现数据的监听：计算属性 -->
+        总分(单向)：<input type="text" v-model="total2"><br>
+        总分(双向)：<input type="text" v-model="total3"><br>
+        <!-- 用监听器来监听数据的变化：监听器 -->
+        总分(单向)：<input type="text" v-model="all"><br>
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+    //实例化app对象
+    let vm = new Vue({
+        el: '#app',//el 放挂载对象,里面写的是选择器,不能挂载在html和body节点上
+        //普通属性
+        data: {//放数据的地方
+            math: 90,
+            chinese: 98,
+            all: 0
+        },
+        //方法
+        methods: {//
+            total() {//普通的方法：单向 M->V
+                console.log('普通方法total被调用了');
+                return this.math * 1 + this.chinese * 1;
+            }
+        },
+        //计算属性
+        computed: {
+            //计算属性都有两个方法：一个叫get() 一个叫set() :V-M
+            total2() { //默认只写一个的时候就是get()方法 ： 单向 M->V
+                console.log('计算属性total2被调用了');
+                return this.math * 1 + this.chinese * 1;
+            },
+            total3: {
+                get() {
+                    console.log('计算属性total3被调用了，get被调用了');
+                    return this.math * 1 + this.chinese * 1;
+                },
+                set(val) {
+                    console.log('计算属性total3被调用了,set被调用了');
+                    // console.log(val);
+                    this.math = this.chinese = (val / 2).toFixed(2);
+                }
+            }
+        },
+        //监听器：方法
+        watch: {
+            //监听数学成绩
+            math(newval, oldval) {
+                console.log('监听器被触发了');
+                console.log(newval);
+                this.all = newval * 1 + this.chinese * 1;
+            }
+        }
+    });
+
+    //监听语文成绩
+    vm.$watch('chinese', (newval, oldval) => {
+        console.log(newval);
+        vm.all = newval * 1 + vm.math * 1;
+    });
+</script>
+
+</html>

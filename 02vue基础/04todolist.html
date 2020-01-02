@@ -27,7 +27,7 @@
                 <thead>
                     <tr>
                         <th scope="col">
-                            <input type="checkbox" name="" id="">
+                            <input type="checkbox" v-model="checkall" name="" id="">
                             全选
                         </th>
                         <th scope="col">#</th>
@@ -38,23 +38,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, index) in tasklist">
-                        <td><input type="checkbox" name="" id="">
+                    <tr v-for="(item, index) in tasklist" @click="select(index)">
+                        <td><input type="checkbox" name="" id="" v-model="item.ischecked">
                         </td>
                         <td scope="row" v-text="item.id"></td>
                         <td v-text="item.con"></td>
                         <td v-text="item.time"></td>
                         <td v-text="item.iscompeletd"></td>
                         <td>
-                            <button type="button" class="btn btn-success">完成</button>
-                            <button type="button" class="btn btn-danger">删除</button>
+                            <button type="button" class="btn btn-success" @click.stop="compelet(index)">完成</button>
+                            <button type="button" class="btn btn-danger" @click.stop="remove(index)">删除</button>
                         </td>
                     </tr>
 
                 </tbody>
 
             </table>
-            <button type="button" class="btn btn-danger">全删</button>
+            <button type="button" class="btn btn-danger" @click="removeall">全删</button>
         </div>
     </div>
 </body>
@@ -65,11 +65,11 @@
         todolist功能需求：
             * 渲染列表数据 ok
             * 添加新任务：点击按钮添加或回车添加 ok
-            * 全选：下面全部选中,反全选
-            * 完成任务
-            * 删除任务：删除某项任务
+            * 全选：下面全部选中,反全选 ok
+            * 完成任务 ok
+            * 删除任务：删除某项任务 ok 
             * 删除全部任务
-            * 点击tr选中任务
+            * 点击tr选中任务 ok
     */
     //实例化app对象
     let vm = new Vue({
@@ -80,18 +80,21 @@
                     id: 1,
                     con: '完成一个小目标，一个亿',
                     time: '2020-12-25',
-                    iscompeletd: '是'
+                    iscompeletd: '是',
+                    ischecked: false
                 },
                 {
                     id: 2,
                     con: '吃湛江鸡',
                     time: '2020-12-25',
-                    iscompeletd: '否'
+                    iscompeletd: '否',
+                    ischecked: true
                 }, {
                     id: 3,
                     con: '吃酸菜鱼',
                     time: '2020-12-25',
-                    iscompeletd: '是'
+                    iscompeletd: '是',
+                    ischecked: false
                 }
             ],
             tex: '',//内容输入
@@ -107,7 +110,8 @@
                         id: this.tasklist.length + 1,
                         con: this.tex,
                         time: this.time,
-                        iscompeletd: '否'
+                        iscompeletd: '否',
+                        ischecked: false
                     }
 
                     //把最新的任务插入到任务列表tasklist
@@ -118,6 +122,38 @@
                     console.log(this.$refs.inputele);
                     //聚焦
                     this.$refs.inputele.focus();
+                }
+            },
+            select(index) {//选中或取消某一行
+                // console.log(this.tasklist[index]);
+                this.tasklist[index].ischecked = !this.tasklist[index].ischecked;
+            },
+            compelet(index) {//任务完成
+                this.tasklist[index].iscompeletd = '是';
+            },
+            remove(index) {//任务的删除
+                let istrue = confirm('您确定要删除吗?');
+                if (istrue) {
+                    this.tasklist.splice(index, 1);//splice 可以做到对数组任意位置的数据进行插入。删除。替换
+                }
+            },
+            removeall() {
+                //删除多项
+                if (confirm('您确定要删除多项吗?'))
+                    this.tasklist = this.tasklist.filter(item => item.ischecked == false);
+            }
+        },
+        //计算属性
+        computed: {
+            checkall: {
+                get() {//M->V 数据层变化引起视图层变化 get方法记得要写return
+                    //every 如果每一项都为真则返回真
+                    return this.tasklist.every(item => item.ischecked);
+                },
+                set(val) {
+                    //V->M 视图层变化引起数据层变化
+                    // console.log(val);
+                    this.tasklist.forEach(item => item.ischecked = val);
                 }
             }
         }

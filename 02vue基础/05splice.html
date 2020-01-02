@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*
+        splice(index,num,data1,data2,……)
+            * 参数一：起始下标
+            * 参数二：删除的个数 量词
+            * 参数三起：选填参数， 数据
+    */
+    let arr = [1, 2, 3, 4, 5, 6];
+    // arr.splice(2, 1);//删除3
+    // arr.splice(3, 0, 8);//在下标为3的前面插入数字8
+    arr.splice(3, 2, 7, 8);//替换 4 5
+    console.log(arr);
+
+</script>
+
+</html>

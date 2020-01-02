@@ -1,0 +1,15 @@
+
+1.完成todolist功能
+
+todolist功能需求：
+    * 渲染列表数据 ok
+    * 添加新任务：点击按钮添加或回车添加 ok
+    * 全选：下面全部选中,反全选 ok
+    * 完成任务 ok
+    * 删除任务：删除某项任务 ok 
+    * 删除全部任务
+    * 点击tr选中任务 ok
+
+2.todoMVC：http://todomvc.com/examples/vue/#/all 效果
+
+https://github.com/tastejs/todomvc-app-template 模板
