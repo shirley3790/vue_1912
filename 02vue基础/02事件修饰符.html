@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件修饰符</title>
+    <style>
+        div {
+            padding: 50px;
+        }
+
+        .father {
+            background: hotpink;
+        }
+
+        .son {
+            background: khaki;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 注意：方法名后面的圆括号可以省略不写,但是如果你需要传参就必须写 -->
+        <div class="father" @click="outer">
+            <!-- 阻止事件冒泡 -->
+            <div class="son" @click.stop="inner"></div>
+        </div>
+        <!-- 默认行为：a跳转 submit提交 选择文字 回车换行 右键菜单 -->
+        <a href="http://www.baidu.com" @click.prevent="show">百度</a>
+        <!-- 事件只能触发一次 -->
+        <p @click.once="change">变了: {{ num }}</p>
+        <!-- <input type="text" @keyup.13="submit"> -->
+        <input type="text" @keyup.enter="submit">
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+    /*
+        事件的修饰符:https://cn.vuejs.org/v2/guide/events.html#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6
+            * @click.stop 阻止冒泡
+            * @click.prevent 阻止默认行为
+            * @click.once 事件只能触发一次
+            * @keyup.键值  键盘修饰符 可以写键值，也可以写单词
+    */
+    //实例化app对象
+    let vm = new Vue({
+        el: '#app',//el 放挂载对象,里面写的是选择器,不能挂载在html和body节点上
+        data: {//放数据的地方
+            num: 0
+        },
+        methods: {
+            outer() {
+                alert('父节点')
+            },
+            inner() {
+                alert('子节点');
+            },
+            show() {
+                console.log('阻止了默认行为');
+            },
+            change() {
+                this.num++;
+            },
+            submit() {
+                console.log('回车提交了');
+            }
+        }
+    });
+
+</script>
+
+</html>

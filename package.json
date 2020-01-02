@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/shirley3790/vue_1912#readme",
   "dependencies": {
+    "boostrap": "^2.0.0",
+    "bootstrap": "^4.4.1",
     "vue": "^2.6.10"
   }
 }

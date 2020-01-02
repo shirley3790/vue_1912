@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>todolist</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <style>
+        .container {
+            padding-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <h1>今天的任务</h1>
+            <div class="input-group">
+                <input type="text" class="form-control" ref="inputele" v-model.trim="tex" @keyup.13="addtask">
+                <input type="date" class="" v-model="time">
+                <button type="button" class="btn btn-primary" @click="addtask">提交</button>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <input type="checkbox" name="" id="">
+                            全选
+                        </th>
+                        <th scope="col">#</th>
+                        <th scope="col">待办事项</th>
+                        <th scope="col">预计完成时间</th>
+                        <th scope="col">是否完成</th>
+                        <th scope="col">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, index) in tasklist">
+                        <td><input type="checkbox" name="" id="">
+                        </td>
+                        <td scope="row" v-text="item.id"></td>
+                        <td v-text="item.con"></td>
+                        <td v-text="item.time"></td>
+                        <td v-text="item.iscompeletd"></td>
+                        <td>
+                            <button type="button" class="btn btn-success">完成</button>
+                            <button type="button" class="btn btn-danger">删除</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+            <button type="button" class="btn btn-danger">全删</button>
+        </div>
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+    /* 
+        todolist功能需求：
+            * 渲染列表数据 ok
+            * 添加新任务：点击按钮添加或回车添加 ok
+            * 全选：下面全部选中,反全选
+            * 完成任务
+            * 删除任务：删除某项任务
+            * 删除全部任务
+            * 点击tr选中任务
+    */
+    //实例化app对象
+    let vm = new Vue({
+        el: '#app',//el 放挂载对象,里面写的是选择器,不能挂载在html和body节点上
+        data: {//放数据的地方
+            tasklist: [//任务列表
+                {
+                    id: 1,
+                    con: '完成一个小目标，一个亿',
+                    time: '2020-12-25',
+                    iscompeletd: '是'
+                },
+                {
+                    id: 2,
+                    con: '吃湛江鸡',
+                    time: '2020-12-25',
+                    iscompeletd: '否'
+                }, {
+                    id: 3,
+                    con: '吃酸菜鱼',
+                    time: '2020-12-25',
+                    iscompeletd: '是'
+                }
+            ],
+            tex: '',//内容输入
+            time: ''
+        },
+        methods: {
+            addtask() {//添加任务
+                // console.log(this.tex);
+                // console.log(this.time);
+                //非空判断
+                if (this.tex) {
+                    let conobj = {
+                        id: this.tasklist.length + 1,
+                        con: this.tex,
+                        time: this.time,
+                        iscompeletd: '否'
+                    }
+
+                    //把最新的任务插入到任务列表tasklist
+                    this.tasklist.push(conobj);
+                    //清空表单
+                    this.tex = '';
+                    //找到节点
+                    console.log(this.$refs.inputele);
+                    //聚焦
+                    this.$refs.inputele.focus();
+                }
+            }
+        }
+    });
+
+</script>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>回顾</title>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 1、花括号渲染数据 {{ 表达式 }} 缺点：闪现 -->
+        <p>{{ msg }}</p>
+        <!-- <p>回顾vue</p> -->
+
+        <!-- 2.可以用v-text="表达式"解决闪现的问题 缺点：不解析标签 -->
+        <p v-text="msg2"></p>
+
+        <!-- 3.可以用v-html解决闪现和解析标签的问题 -->
+        <p v-html="msg2"></p>
+
+        <!-- 4.可以用v-model实现双向数据绑定,用在表单身上 -->
+        <!-- 普通的text表单 -->
+        <input type="text" v-model="msg3">
+        <p v-text="msg3"></p><br>
+        <!-- 单选框 -->
+        <input type="radio" name="sex" id="" value="man" v-model="sex">男
+        <input type="radio" name="sex" id="" value="woman" v-model="sex">女<br>
+        <!-- 多选框 -->
+        <input type="checkbox" name="likes" id="" value="lq" v-model="like">篮球
+        <input type="checkbox" name="likes" id="" value="zq" v-model="like">足球
+        <input type="checkbox" name="likes" id="" value="ppq" v-model="like">乒乓球
+        <input type="checkbox" id="" value="pq" v-model="choose">排球<br>
+        <!-- 下拉列表 -->
+        <select name="" id="" v-model="adr">
+            <option value="gx">广西</option>
+            <option value="gd">广东</option>
+            <option value="hn">湖南</option>
+        </select><br>
+        <!-- 文本域 -->
+        <textarea name="" id="" cols="30" rows="10" v-model="tex"></textarea><br>
+        <!-- 5.事件绑定 v-on:事件名  或 @事件名 -->
+        <input type="button" value="提交" v-on:click="submit">
+        <input type="button" value="提交" @click="submit2"><br>
+        <!-- 6.绑定属性 v-bind:属性名="表达式" 或 :属性名 -->
+        <a v-bind:href="url">百度</a>
+        <!-- <img :src="" alt=""> -->
+        <p class="red">红花会</p>
+        <p v-bind:class="clname">清明重阳</p>
+        <p :class="clname">韦小宝</p>
+        <!-- 7.显示和隐藏 v-if 或 v-show  区别：v-show只是隐藏节点  v-if是创建和删除节点 -->
+        <input type="button" value="下拉菜单" @click="isok = !isok ">
+        <!-- <p class="box" v-if="isok"></p> -->
+        <p class="box" v-show="isok"></p>
+
+
+    </div>
+</body>
+<script src=" ../node_modules/vue/dist/vue.js"> </script>
+<script>
+    //实例化app对象
+    let vm = new Vue({
+        el: '#app',//el 放挂载对象,里面写的是选择器,不能挂载在html和body节点上
+        //data放数据的地方
+        data: {
+            msg: '回顾vue',
+            msg2: '<h2>优点：组件化</h2>',
+            msg3: '优点：双向数据绑定',//普通表单默认值
+            sex: 'man',//单选框的默认值
+            like: ['lq', 'ppq'], //复选框一般写成数组的格式来设置默认值
+            choose: true, //复选框可以直接设置布尔值也可以设置勾选效果
+            adr: 'hn',
+            tex: '',
+            url: 'http://www.baidu.com',
+            clname: 'red',
+            isok: false
+        },
+        //methods 放方法的地方
+        methods: {
+            submit() {
+                let datalist = {
+                    name: this.msg3,
+                    sex: this.sex,
+                    like: this.like,
+                    adr: this.adr,
+                    inf: this.tex
+                }
+                console.log(datalist);//发送ajax把这些数据发送给后端
+            },
+            submit2() {
+                console.log('提交了');
+            }
+        }
+    });
+
+</script>
+
+</html>

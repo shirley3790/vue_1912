@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>修饰符</title>
+</head>
+
+<body>
+    <div id="app">
+
+        <input type="text" v-model.trim="msg">
+        <input type="text" v-model.number="num">
+        <!-- v-model默认的效果:oninput事件效果,需求：失去焦点才触发 -->
+        <input type="text" v-model.lazy="tex">
+        <!-- 点击的时候传参 -->
+        <input type="button" value="提交" @click="submit('666')">
+        <!-- <input type="button" value="提交" @click="submit2"> -->
+        <!-- <input type="button" value="提交" @click="submit3('666',$event)"> -->
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+    /*
+        v-model修饰符：
+            * v-model.trim 去除前后空格
+            * v-model.number 把字符串转成数字类型
+            * v-model.lazy 失去焦点才触发
+    */
+    //实例化app对象
+    let vm = new Vue({
+        el: '#app',//el 放挂载对象,里面写的是选择器,不能挂载在html和body节点上
+        data: {//放数据的地方
+            msg: '',
+            num: 0,
+            tex: ''
+        },
+        methods: {
+            submit(data) {//形参
+                // console.log(data);
+                // let str = this.msg.trim();
+                // console.log(str);
+
+                console.log(this.msg);
+            },
+            submit2(ev) {
+                console.log(ev.target.value);//value
+                console.log(ev.target.tagName);//INPUT
+            },
+            submit3(data, ev) {//形参
+                console.log(data);
+                console.log(ev);
+            }
+        }
+    });
+
+</script>
+
+</html>
