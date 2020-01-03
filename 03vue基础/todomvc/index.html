@@ -30,7 +30,7 @@
 					<li :class="{editing : 1 == index}">
 					<li :class="{editing : 2 == index}"> -->
 					<li :class="{completed : item.completed,editing : currentitem == item }"
-						v-for="(item, index) in taskList">
+						v-for="(item, index) in filterdata">
 						<div class="view">
 							<input class="toggle" type="checkbox" v-model="item.completed">
 							<!-- 双击label的时候进入编辑状态，就是给li添加类名editing -->
@@ -48,17 +48,17 @@
 			<!-- This footer should hidden by default and shown when there are todos -->
 			<footer class="footer" v-show="taskList.length">
 				<!-- This should be `0 items left` by default -->
-				<span class="todo-count"><strong>0</strong> item left</span>
+				<span class="todo-count"><strong>{{ uncom }}</strong> item{{ uncom == 1 ? '' : 's' }} left</span>
 				<!-- Remove this if you don't implement routing -->
 				<ul class="filters">
 					<li>
-						<a class="selected" href="#/">All</a>
+						<a :class="{selected : status == 'all'}" href="#/all">All</a>
 					</li>
 					<li>
-						<a href="#/active">Active</a>
+						<a :class="{selected : status == 'active'}" href="#/active">Active</a>
 					</li>
 					<li>
-						<a href="#/completed">Completed</a>
+						<a :class="{selected : status == 'completed'}" href="#/completed">Completed</a>
 					</li>
 				</ul>
 				<!-- Hidden if no completed items are left ↓ -->

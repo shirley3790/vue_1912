@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模板</title>
+    <style>
+        .content {
+            width: 600px;
+            height: 200px;
+            border: 1px solid #000;
+
+        }
+    </style>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <h2>选项卡</h2>
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link" :class="{active :currenitem == index}" v-for="(item, index) in menus"
+                        @click="change(index)">{{ item }}</a>
+                </div>
+            </nav>
+            <div id="con">
+                <div class="content" v-show="currenitem == 0">新闻</div>
+                <div class="content" v-show="currenitem == 1">体育</div>
+                <div class="content" v-show="currenitem == 2">科技</div>
+                <div class="content" v-show="currenitem == 3">娱乐</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    //实例化app对象
+    let vm = new Vue({
+        el: '#app',//el 放挂载对象,里面写的是选择器,不能挂载在html和body节点上
+        //普通属性
+        data: {//放数据的地方
+            currenitem: 0,
+            menus: ['新闻', '体育', '科技', '娱乐']
+        },
+        //方法
+        methods: {
+            change(index) {
+                this.currenitem = index;
+            }
+        },
+        //计算属性
+        computed: {
+
+        },
+        //监听器：方法
+        watch: {
+
+        }
+    });
+
+</script>
+
+</html>

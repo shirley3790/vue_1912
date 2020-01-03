@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>key的使用</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="newdata">
+        <input type="button" value="添加数据" @click="add">
+        <ul>
+            <li v-for="(item, index) in arr" :key="item"> <input type="checkbox"> {{ index }} - {{ item }}</li>
+        </ul>
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+    /*
+        v-for的时候如果遍历的数据是同类型：li
+            * key 里面的值是唯一且稳定
+    */
+    //实例化app对象
+    let vm = new Vue({
+        el: '#app',//el 放挂载对象,里面写的是选择器,不能挂载在html和body节点上
+        //普通属性
+        data: {//放数据的地方
+            newdata: '',
+            // arr : [
+            //     {
+            //         id : 0,
+            //         con : '濑尿虾'
+            //     }
+            // ]
+            arr: ['濑尿虾', '大闸蟹', '生蚝', '小龙虾']
+        },
+        //方法
+        methods: {
+            add() {
+                // console.log(this.newdata);
+                this.arr.unshift(this.newdata);
+            }
+        },
+        //计算属性
+        computed: {
+
+        },
+        //监听器：方法
+        watch: {
+
+        }
+    });
+
+</script>
+
+</html>
