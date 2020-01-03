@@ -1,0 +1,19 @@
+
+
+问：attr获取不到checkbox的checked
+
+prop 单选和复选框
+
+$('#allchecked').prop('checked') 取值
+$('#allchecked').prop('checked',true) 赋值
+
+普通的属性就用 attr
+title value class
+$('#num').attr('data-num',8)
+
+自定义属性 data-num=“8”
+
+$('#num').data('num')
+
+class属性有单独一套方法使用
+

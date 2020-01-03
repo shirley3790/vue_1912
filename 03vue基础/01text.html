@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="num" data-num="666"></div>
+</body>
+<script src="../node_modules/jquery/dist/jquery.js"></script>
+<script>
+    let num = $('#num').data('num');//获取到的是数字
+    console.log(num);
+
+    // $('#num').data('data-price', 888);//不能设置自定义属性
+    $('#num').attr('data-price', 888);//获取到的是字符串
+    let num2 = $('#num').attr('data-price');
+    console.log(num2);
+</script>
+
+</html>

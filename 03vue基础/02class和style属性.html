@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02class和style属性</title>
+    <style>
+        .redcl {
+            color: red;
+        }
+
+        .bg {
+            background: palegreen;
+        }
+
+        .fz {
+            font-size: 38px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 1.普通写法 -->
+        <p class="redcl bg">红色的字体1</p>
+
+        <!-- 2.样式名从data里面读取 -->
+        <p :class="claname">红色的字体2</p>
+
+        <!-- 3.class写成对象的格式:属性名：样式名字  属性值：布尔值，true:采用该样式,false:不采用该样式  (重点) -->
+        <p :class="{redcl : hascol,bg : hasbg}">红色的字体3</p>
+
+        <!-- 4.class写成数组的格式 : 注意如果是类名记得加单引号，如果是属性不需要加引号 -->
+        <p :class="['redcl','bg',fonts]">红色的字体4</p>
+
+        <!-- 5.class写成数组的格式 : 从属性读取数组 -->
+        <p :class="claarr">红色的字体5</p>
+
+        <!-- 6.style行内样式(内联样式)的添加 -->
+        <p style="width: 100px;height: 100px;background: palevioletred;">红色的字体6</p>
+        <p :style="{width:iw,height:iw,background:bgcl}">红色的字体6</p>
+
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    //实例化app对象
+    let vm = new Vue({
+        el: '#app',//el 放挂载对象,里面写的是选择器,不能挂载在html和body节点上
+        //普通属性
+        data: {//放数据的地方
+            claname: 'redcl',
+            hascol: true,
+            hasbg: true,
+            fonts: 'fz',
+            claarr: ['redcl', 'bg'],
+            iw: '200px',
+            bgcl: 'palevioletred'
+        },
+        //方法
+        methods: {
+
+        },
+        //计算属性
+        computed: {
+
+        },
+        //监听器：方法
+        watch: {
+
+        }
+    });
+
+</script>
+
+</html>
