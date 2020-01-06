@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>组建化：把整个完整的页面切割成一个个小组件再组装页面，这个过程组件化</title>
+    <title>组建化</title>
     <style>
         .header {
             width: 100%;
@@ -50,11 +50,12 @@
 <script>
 
     /*
-        组件的的使用：一个组件就是一个完整的vue实例
+        * 组建化：把整个完整的页面切割成一个个小组件再组装页面，这个过程组件化
+        * 组件的的使用：一个组件就是一个完整的vue实例
             * 注册组件：data必须写成函数的形式
                 * 全局组件注册:任意vue都可以调用
                     * Vue.compunent(组件名字,{})
-                        * Vue.compunent('app-head',{}) 调用：<app-head></app-head>
+                        * Vue.compunent('app-head',{}) 调用：<app-head></app-head> 
                         * Vue.compunent('appHead',{}) 调用：<app-head></app-head>
                         * Vue.compunent('apphead',{}) 调用：<apphead></apphead>
                 * 局部组件注册：局部的vue才能调用

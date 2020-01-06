@@ -1,5 +1,5 @@
 Vue.component('app-news', {
-    // el : '',el是把数据写到id为app的里面
+    // el : '#app',el是把数据写到id为app的里面
     data: function () {
         return {
             list: ['雪人兄弟', '超级玛丽', '魂斗罗', '坦克大战']
