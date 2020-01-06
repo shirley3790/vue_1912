@@ -48,6 +48,7 @@
   </div>
 </template>
 <script>
+//引入需要的css文件
 import "../../../../node_modules/bootstrap/dist/css/bootstrap.css";
 
 export default {
