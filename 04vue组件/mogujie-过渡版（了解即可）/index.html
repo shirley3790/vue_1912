@@ -21,7 +21,7 @@
   </div>
 </body>
 <script src="../../node_modules/vue/dist/vue.js"></script>
-<script src="./components/appboot.js"></script>
+<script src="./app.js"></script>
 <script src="./components/apphead.js"></script>
 <script src="./components/appnews.js"></script>
 <script src="./components/appmain.js"></script>
@@ -29,6 +29,13 @@
 <script src="./components/apptable.js"></script>
 
 <script>
+
+  /*
+    组件化：把页面切割成一个个的小模块，就是小组件，需要的用的时候引进来调用。
+      * 缺点：
+        * 样式并没有分类
+        * 结构写在template属性里面是一个字符串，可读性很差，编写代码不够方便
+  */
   (function () {
     let vm = new Vue({
       el: '#app'

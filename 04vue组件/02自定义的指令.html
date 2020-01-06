@@ -37,6 +37,7 @@
     //如果你写的是：textupper指令，调用 v-textupper
 
     //需求：把p标签里面的文本变成红色字体，大写输出
+    //全局指令注册
     Vue.directive('textUpper', {
         inserted: function (el) {
             //当属性被绑定到DOM的时候
@@ -45,7 +46,6 @@
             el.innerHTML = el.innerHTML.toUpperCase();
         }
     });
-
 
     //实例化app对象
     let vm = new Vue({
@@ -66,7 +66,7 @@
         watch: {
 
         },
-        directives: {
+        directives: {//局部指令的注册
             //v-focus : 自动获取焦点
             'focus': {
                 inserted: function (el) {

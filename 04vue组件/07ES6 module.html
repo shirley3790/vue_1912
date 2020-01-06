@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<!-- <script src="js/fn.js"></script> -->
+<script type="module">
+    /*
+        作用域：
+            * 全局作用域  window 函数外
+            * 局部作用域  函数内
+            * 块级作用域  函数内外，不在window下
+            * 模块作用域  作用在声明的模块里面，如果不调用是不需要耗费内存
+             
+        
+        模块化方案：
+            * AMD  代表：requirejs 前端借助插件
+            * CMD 代表：seajs 前端借助插件
+            * commonjs 代表：nodejs 后端的模块化规范
+            * script 传统的方式 缺点：依赖复杂会混乱;连接过多，发送请求过多;同步的写法，前面的模块出错，后面会受影响
+            * ES6 module 直接实现导入导出 优点：不需要借助插件，前端就可以直接实现模块化，低版本ie不支持
+                * 导出  export
+                * 导入  import ss form xx
+
+        ES6 module使用步骤：
+            1.在页面内script标签写上type="module"
+            2.需要环境打开才能起作用：http-server
+            3.先导出模块：export
+            4.导入模块
+    */
+
+    // console.log(obj.show());
+    //导入模块使用
+    import { obj } from './js/mymodule.js';
+    console.log(obj.show());
+    //导入所有并重命名 as
+    // import * as all from './js/mymodule.js';
+    import { showname as show } from './js/mymodule.js';
+    // console.log(all);
+    // console.log(showname());
+    console.log(show());
+
+    import { obj as dm, showname as sm } from './js/mymodule.js';
+    console.log(dm, sm);
+
+    import fn from './js/mymodule.js';//建议用这种
+    console.log(fn);
+</script>
+
+</html>

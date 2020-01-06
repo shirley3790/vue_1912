@@ -1,0 +1,10 @@
+
+1.安装脚手架 
+
+npm install -g @vue/cli
+cd mogujie
+npm run serve
+
+2.把bootstrap模板改成组件化方式并实现组件通信
+
+3.把todolist用脚手架方式实现组件化
