@@ -14,32 +14,47 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(item, index) in tasklist" @click="selectitem(index)" :key="item.id">
-        <td>
-          <input type="checkbox" name id v-model="item.ischecked" />
-        </td>
-        <td scope="row" v-text="item.id"></td>
-        <td v-text="item.con"></td>
-        <td v-text="item.time"></td>
-        <td v-text="item.iscompeletd"></td>
-        <td>
-          <button type="button" class="btn btn-success" @click.stop="compeletitem(index)">完成</button>
-          <button type="button" class="btn btn-danger" @click.stop="remove(index)">删除</button>
-        </td>
-      </tr>
+      <!-- tr子组件 -->
+      <app-item
+        :tasklist="tasklist"
+        :select="select"
+        :compelet="compelet"
+        :remove="remove"
+        :removeall="removeall"
+        v-for="(item, index) in tasklist"
+        :index="index"
+        :item="item"
+        :key="item.id"
+      ></app-item>
     </tbody>
+    <button type="button" class="btn btn-danger" @click="removeallitem">全删</button>
   </table>
 </template>
 <script>
+import appItem from "./appitem";
 export default {
-  props: ["tasklist", "select", "compelet"],
-  methods: {
-    selectitem(index) {
-      this.select(index);
-    },
-    compeletitem(index) {
-      this.compelet(index);
+  props: ["tasklist", "select", "compelet", "removeall", "remove"],
+  computed: {
+    checkall: {
+      get() {
+        //M->V 数据层变化引起视图层变化 get方法记得要写return
+        //every 如果每一项都为真则返回真
+        return this.tasklist.every(item => item.ischecked);
+      },
+      set(val) {
+        //V->M 视图层变化引起数据层变化
+        // console.log(val);
+        this.tasklist.forEach(item => (item.ischecked = val));
+      }
     }
+  },
+  methods: {
+    removeallitem() {
+      this.removeall();
+    }
+  },
+  components: {
+    appItem
   }
 };
 </script>

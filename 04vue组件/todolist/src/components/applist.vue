@@ -3,10 +3,21 @@
     <div class="container">
       <h1>今天的任务</h1>
       <!-- 表单组:子组件 -->
-      <app-form :addtask="addtask"></app-form>
+      <app-form :addtask="addtask">
+        <!-- 插槽的使用 -->
+        <template v-slot:title="obj">
+          <!-- <p slot="title">插槽的使用</p> -->
+          <p>插槽的使用{{obj.adr}} {{doc}}</p>
+        </template>
+      </app-form>
       <!-- 表格：子组件 -->
-      <app-table :tasklist="tasklist" :select="select" :compelet="compelet"></app-table>
-      <button type="button" class="btn btn-danger" @click="removeall">全删</button>
+      <app-table
+        :tasklist="tasklist"
+        :select="select"
+        :compelet="compelet"
+        :remove="remove"
+        :removeall="removeall"
+      ></app-table>
     </div>
   </div>
 </template>
@@ -15,6 +26,7 @@
 import "../../../../node_modules/bootstrap/dist/css/bootstrap.css";
 import appForm from "./appform";
 import appTable from "./apptable";
+import Bus from "../bus";
 
 export default {
   data: function() {
@@ -44,6 +56,7 @@ export default {
           ischecked: false
         }
       ]
+      // doc: 1
     };
   },
   methods: {
@@ -88,23 +101,15 @@ export default {
     }
   },
   //计算属性
-  computed: {
-    checkall: {
-      get() {
-        //M->V 数据层变化引起视图层变化 get方法记得要写return
-        //every 如果每一项都为真则返回真
-        return this.tasklist.every(item => item.ischecked);
-      },
-      set(val) {
-        //V->M 视图层变化引起数据层变化
-        // console.log(val);
-        this.tasklist.forEach(item => (item.ischecked = val));
-      }
-    }
-  },
   components: {
     appForm,
     appTable
+  },
+  mounted() {
+    //钩子函数
+    Bus.$on("selectlist", this.select);
+    Bus.$on("compeletlist", this.compelet);
+    Bus.$on("removelist", this.remove);
   }
 };
 </script>
