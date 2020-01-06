@@ -28,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in tasklist" @click="select(index)" :key="item">
+          <tr v-for="(item, index) in tasklist" @click="select(index)" :key="item.id">
             <td>
               <input type="checkbox" name id v-model="item.ischecked" />
             </td>
