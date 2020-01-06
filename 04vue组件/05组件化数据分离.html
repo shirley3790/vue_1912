@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组建化：把整个完整的页面切割成一个个小组件再组装页面，这个过程组件化</title>
+    <style>
+        .header {
+            width: 100%;
+            height: 100px;
+            background: lightblue;
+        }
+
+        .main {
+            width: 100%;
+            height: 100px;
+            background: lightcoral;
+        }
+
+        .footer {
+            width: 100%;
+            height: 100px;
+            background: lawngreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <div class="header">头部</div>
+        <div class="main">内容</div>
+        <div class="footer">底部</div> -->
+        <!-- 全局组件的调用 -->
+        <app-head></app-head>
+        <app-main></app-main>
+        <app-foot></app-foot>
+        <!-- 局部组件的调用 -->
+        <app-news></app-news>
+    </div>
+
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="./components/apphead.js"></script>
+<script src="./components/appmain.js"></script>
+<script src="./components/appfoot.js"></script>
+<script>
+
+    /*
+        组件的的使用：一个组件就是一个完整的vue实例
+            * 注册组件：data必须写成函数的形式
+                * 全局组件注册:任意vue都可以调用
+                    * Vue.compunent(组件名字,{})
+                        * Vue.compunent('app-head',{}) 调用：<app-head></app-head>
+                        * Vue.compunent('appHead',{}) 调用：<app-head></app-head>
+                        * Vue.compunent('apphead',{}) 调用：<apphead></apphead>
+                * 局部组件注册：局部的vue才能调用
+                    new Vue({
+                        compounents : {
+                            组件名称 ：{}
+                        }
+                    })
+            * 调用组件
+                * <app-head></app-head>
+
+    */
+
+    //注册局部组件
+    let news = {
+        data: function () {
+            return {
+                msg: '一个小模块'
+            }
+        },
+        template: '<p @click="show">{{ msg }}</p>',
+        methods: {
+            show() {
+                alert('局部组件的弹窗');
+            }
+        }
+    }
+
+    //实例化app对象
+    let vm = new Vue({
+        el: '#app',//el 放挂载对象,里面写的是选择器,不能挂载在html和body节点上
+        //普通属性
+        data: {//放数据的地方
+
+        },
+        //方法
+        methods: {
+
+        },
+        //计算属性
+        computed: {
+
+        },
+        //监听器：方法
+        watch: {
+
+        },
+        components: {
+            'app-news': news
+        }
+    });
+
+
+</script>
+
+</html>

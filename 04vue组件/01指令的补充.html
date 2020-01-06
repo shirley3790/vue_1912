@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>指令的补充</title>
+    <style>
+        [v-clock] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 花括号会出现闪现，因为html代码在上，vue代码在下面，挂载之前已经可以看到html所以看到{{}},解决方案：v-text v-html -->
+        <p>{{ msg }}</p>
+        <p v-text="msg"></p>
+        <p v-html="msg"></p>
+        <!-- 闪现解决方案三：v-clock 作用，挂载成功之前，p标签是隐藏的，挂载成功后，display:block -->
+        <p v-clock>{{ msg }}</p>
+        <!-- v-pre作用：保留双花括号，当成文本显示不去编译 -->
+        <h1 v-pre>{{ 梦里花落知多少 }}</h1>
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    //实例化app对象
+    let vm = new Vue({
+        el: '#app',//el 放挂载对象,里面写的是选择器,不能挂载在html和body节点上
+        //普通属性
+        data: {//放数据的地方
+            msg: '数据渲染'
+        },
+        //方法
+        methods: {
+
+        },
+        //计算属性
+        computed: {
+
+        },
+        //监听器：方法
+        watch: {
+
+        }
+    });
+
+</script>
+
+</html>
