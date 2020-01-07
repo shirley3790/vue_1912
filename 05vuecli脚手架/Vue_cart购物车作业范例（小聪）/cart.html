@@ -1,0 +1,102 @@
+ <!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>我的购物车</title>
+
+     <link rel="stylesheet" href="./css/bootstrap.css">
+     <link rel="stylesheet" href="./css/index.css">
+ </head>
+
+ <body>
+     <div class="container">
+         <div class="Dw">
+             <button type="button" class="btn btn-danger delall" @click="DelAll">删除所选</button>
+             <button type="button" class="btn btn-danger js" ref="ks" @click="jiesuan">结算</button>
+             <div class="Dw_dd">
+                 <label for="">总价为：</label>
+                 <span v-text="ZongJia"></span>
+             </div>
+         </div>
+         <h2>购物车</h2>
+         <table class="table">
+             <thead class="thead-dark">
+                 <tr>
+                     <th scope="col">全选
+                         <input type="checkbox" name="" id="" v-model="All_isok">
+                     </th>
+                     <th scope="col">介绍</th>
+                     <th scope="col">规格</th>
+                     <th scope="col">价格</th>
+                     <th scope="col">数量</th>
+                     <th scope="col">总价</th>
+                     <th scope="col">操作</th>
+                 </tr>
+             </thead>
+         </table>
+         <div class="show_crat" v-for="(ele,index) in goodlists" :key="index">
+             <div>
+                 <input type="checkbox" name="" id="" v-model="ele.shop_isok" @click="shop_allche(index)">
+                 <label for="">商店ID:</label>
+                 <label for="" v-text='ele.shop_id' ref="idd"></label>&nbsp;&nbsp;
+                 <label for="">商店名字:</label>
+                 <label for="" v-text='ele.shop_name'></label>
+             </div>
+             <div class="shangping">
+                 <ul class="UL_show" v-for="(e,index_1) in ele.shop_comm" :key="e.shop_id">
+                     <li class="check_Box">
+                         <input type="checkbox" name="" id="xuanze" v-model="e.comm_isok">
+                     </li>
+                     <li class="img_">
+                         <img :src="e.comm_img" alt="">
+                     </li>
+                     <li class="title_">
+                         <p v-text="e.comm_int">
+                         </p>
+                     </li>
+                     <li class="show_guige">
+                         <p>规格默认</p>
+                         <span>
+                             尺寸：
+                         </span>
+                         <span v-text='e.comm_big'>
+
+                         </span>
+                     </li>
+                     <li class="show_price">
+
+                         <span>￥</span> <span v-text='e.comm_price'>
+                         </span>
+                     </li>
+                     <li class="show_num">
+                         <div class="top_">
+                             <button @click="num__(index,index_1)">-</button>
+                             <input type="text" v-model='e.Num' id="num">
+                             <button @click="num_jia(index,index_1)">+</button>
+                         </div>
+                     </li>
+                     <li class="show_zong">
+                         <span>总价：</span><span v-text="(e.comm_price * e.Num) "></span>
+                     </li>
+                     <li class="show_del">
+                         <span @click="del_dq(index,index_1)">删除当前商品 </span>
+                     </li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+
+     </div>
+
+
+
+ </body>
+ <script src="./js/vue.js"></script>
+ <script src="./js/index.js">
+
+ </script>
+
+ </html>
