@@ -1,0 +1,17 @@
+1.路由的设置。
+
+2.axios的安装和引入
+
+3.用vantui搭建页面：仿易果生鲜移动端
+
+https://youzan.github.io/vant/#/zh-CN/tabbar
+
+首页
+列表
+二级列表
+详情
+购物车
+注册
+登陆
+个人信息中心
+地址添加
