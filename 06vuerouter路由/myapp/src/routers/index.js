@@ -34,13 +34,16 @@ let router = new VueRouter({
             component: Cart
         },
         {
+            name: 'list',
             path: '/list',
             component: List
         }, {
+            name: 'mine',
             path: '/mine',
             component: Mine
         },
         {
+            name: 'other',
             path: '*',
             component: Is404
         }
