@@ -11,5 +11,15 @@
   </form>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      value: ""
+    };
+  },
+  methods: {
+    onSearch() {},
+    onCancel() {}
+  }
+};
 </script>

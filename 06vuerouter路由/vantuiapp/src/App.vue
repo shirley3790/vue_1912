@@ -2,22 +2,18 @@
   <div id="app">
     <!-- <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>-->
+    <!-- 内容的出口 -->
+    <router-view></router-view>
 
-    <!-- <router-view></router-view> -->
-    <Home></Home>
-    <!-- 底部导航 -->
-    <van-tabbar v-model="active" active-color="#58bc58" inactive-color="#000">
-      <van-tabbar-item icon="home-o">主页</van-tabbar-item>
-      <van-tabbar-item icon="apps-o">列表页</van-tabbar-item>
-      <van-tabbar-item icon="shopping-cart-o" info="5">购物车</van-tabbar-item>
-      <van-tabbar-item icon="friends-o">个人中心</van-tabbar-item>
-    </van-tabbar>
+    <!-- 导航子组件 -->
+    <app-nav></app-nav>
   </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import Home from "./pages/home";
+
+import appNav from "./components/appnav";
 
 export default {
   name: "app",
@@ -26,13 +22,10 @@ export default {
       value: ""
     };
   },
-  methods: {
-    onSearch() {},
-    onCancel() {}
-  },
+
   components: {
     // HelloWorld
-    Home
+    appNav
   }
 };
 </script>

@@ -6,11 +6,15 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 //3.引入你要的组件
-import Home from '../components/home';
-import List from '../components/list';
-import Cart from '../components/cart';
-import Mine from '../components/mine';
-import Is404 from '../components/is404';
+import Home from '../pages/home';
+import List from '../pages/list';
+import Cart from '../pages/cart';
+import Mine from '../pages/mine';
+import Is404 from '../pages/is404';
+import Catogary from '../pages/catogary';
+import Details from '../pages/details';
+import Reg from '../pages/reg';
+import Login from '../pages/login';
 
 // 4. 实例化router并配置参数:路由规则
 let router = new VueRouter({
@@ -35,7 +39,7 @@ let router = new VueRouter({
         },
         {
             name: 'list',
-            path: '/list/:id',
+            path: '/list',
             component: List
         }, {
             name: 'mine',
@@ -46,6 +50,26 @@ let router = new VueRouter({
             name: 'other',
             path: '*',
             component: Is404
+        }, {
+            name: 'list2',
+            path: '/list2',
+            component: Catogary
+        }, {
+            name: 'details',
+            path: '/details',
+            component: Details,
+            meta: {//在details组件里面有个特殊的开关，元信息
+                isshow: true
+            }
+        }, {
+            name: 'reg',
+            path: '/reg',
+            component: Reg
+        },
+        {
+            name: 'login',
+            path: '/login',
+            component: Login
         }
     ]
 });

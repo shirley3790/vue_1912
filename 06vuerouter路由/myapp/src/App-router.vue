@@ -50,6 +50,12 @@
         :class="{bg: nowbg == item.name}"
       />
     </p>
+
+    <!-- 路由传参 -->
+    <p>
+      <input type="button" value="主页" @click="tolist" />
+    </p>
+
     <div>
       <!-- 切换内容:路由内容输出的地方 -->
       <router-view></router-view>
@@ -102,7 +108,7 @@ export default {
             * this.$router.forward() 前进一页(常用)
             * this.$router.back() 回到上一页(常用)
         
-        this.$route 当前组件的路由:实现路由传参
+        this.$route 当前组件的路由:实现路由传参(如果需要实现页面数据共享，其实很多方法：借助本地存储localstroage或cookies)
           传参：
             * params
             * query
@@ -116,6 +122,21 @@ export default {
     change(name) {
       // window.console.log(this.$route);
       this.current = name;
+    },
+    tolist() {
+      //在主页，点击的时候跳转到列表页，顺便把id=123带到列表页
+      // this.$router.push({ name: "list", params: { id: 123 } }); //params传参必须用name实现跳转,刷新后就不存在了
+
+      this.$router.push({ name: "list", query: { id: 123, name: "malin" } }); //params传参必须用name实现跳转
+
+      // this.$router.push({
+      //   name: "list",
+      //   params: { id: 123 },
+      //   query: { id: 123 }
+      // });
+
+      //动态路由
+      // this.$router.push("/list/456");
     }
   },
   mounted() {
