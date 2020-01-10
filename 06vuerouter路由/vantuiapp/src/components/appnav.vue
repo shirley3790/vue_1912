@@ -56,8 +56,8 @@ export default {
     }
   },
   created() {
-    window.console.log(this.$router);
-    window.console.log(this.$route);
+    // window.console.log(this.$router);
+    // window.console.log(this.$route);
     let arr = ["home", "list", "cart", "mine"];
     let index = arr.indexOf(this.$route.name);
     if (index >= 0) {

@@ -4,6 +4,8 @@ import App from './App.vue'
 import Vant from 'vant';
 import '../node_modules/vant/lib/index.css';
 import router from './routers/index';
+import axios from "axios";
+Vue.prototype.$axios = axios;
 
 Vue.use(Vant);//调用UI框架
 
