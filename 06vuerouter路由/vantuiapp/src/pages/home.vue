@@ -28,6 +28,14 @@ export default {
   components: {
     appSearch,
     appSwiper
+  },
+  beforeRouteLeave(to, from, next) {
+    //组件内路由守卫
+    //离开
+    // window.console.log("home beforeRouteLeave");
+    // window.console.log(to); //去哪
+    // window.console.log(from); //从哪里切走
+    next(); //进入下一个钩子
   }
 };
 </script>

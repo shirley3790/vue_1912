@@ -49,6 +49,9 @@ export default {
     onClickButton() {
       //   Toast("点击按钮");
     }
+  },
+  created() {
+    window.console.log(this.$route);
   }
 };
 </script>
