@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import appBack from "../components/appback";
 export default {
   data() {
@@ -87,10 +87,10 @@ export default {
     this.$store.dispatch("getlist", { cid: 1, cid3: 1 });
   },
   computed: {
-    // 数组形式
-    ...mapState([
-      "city" //映射computed.produccts为this.$store.state.city
-    ])
+    // 映射state.cart.city的数据
+    ...mapState({
+      city: state => state.cart.city
+    })
   }
 };
 </script>
