@@ -66,7 +66,7 @@ let router = new VueRouter({
             path: '/details',
             component: Details,
             meta: {//在details组件里面有个特殊的开关，元信息
-                isshow: true
+                isshow: true//详情页不需要显示菜单栏
             }
         }, {
             name: 'reg',
@@ -87,7 +87,7 @@ router.beforeEach((to, from, next) => {
     // window.console.log("全局的守卫 beforeEach");
     window.console.log(to);//to就是你要进入的路由
     window.console.log(from);//from就是要离开的路由
-    //在这里做路由守卫比较好：因为每一个路由切换的时候都会调用这个路由钩子，只需要一次性做好鉴权，所有需要鉴权的页面都有效果
+    //在这里做路由守卫比较好：因为每一个路由切换的时候都会调用这个路由钩子，只需要一次性做好鉴权，所有需要鉴权的页面都有效果 配合路由规则里面的元信息：meta实现
     if (to.meta.ispower) {
         //需要鉴权
         //获取token
