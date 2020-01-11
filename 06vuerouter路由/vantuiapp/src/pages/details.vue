@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState } from "vuex";
 import appBack from "../components/appback";
 export default {
   data() {
