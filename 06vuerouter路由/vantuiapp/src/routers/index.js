@@ -87,7 +87,7 @@ router.beforeEach((to, from, next) => {
     // window.console.log("全局的守卫 beforeEach");
     window.console.log(to);//to就是你要进入的路由
     window.console.log(from);//from就是要离开的路由
-    //在这里做路由守卫比较好：因为每一个路由切换的时候都会调用这个路由钩子，只需要一次性做好鉴权，所有需要鉴权的页面都有效果 配合路由规则里面的元信息：meta实现
+    //在这里做路由守卫比较好：因为每一个路由切换的时候都会调用这个路由钩子，只需要一次性做好鉴权，所有需要鉴权的页面都有效果,但是要配合路由规则里面的元信息：meta实现
     if (to.meta.ispower) {
         //需要鉴权
         //获取token
@@ -97,7 +97,7 @@ router.beforeEach((to, from, next) => {
             window.console.log('已登录可以进入该路由')
             next();
         } else {
-            //没有权限就跳转到登陆页
+            //没有权限就跳转到登陆页并且把刚才想进入的路由路径给到登陆页，等登录成功可以回到该路由
             router.push({ path: '/login', targeturl: to.path });
         }
     } else {
