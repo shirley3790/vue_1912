@@ -44,11 +44,23 @@ import appBack from "../components/appback";
 export default {
   data() {
     return {
+      checked: true,
       num: 1
     };
   },
+  methods: {
+    onSubmit() {}
+  },
   components: {
     appBack
+  },
+  created() {
+    //购物车数据渲染
+    // let data = this.$store.state.products;
+    // window.console.log(data);
+    // this.$store.dispatch("getlist", { cid: 1, cid3: 1 });
+    // let list = this.$store.state.cart.cartlist;
+    // window.console.log(list);
   }
 };
 </script>

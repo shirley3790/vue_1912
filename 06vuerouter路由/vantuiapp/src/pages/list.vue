@@ -75,25 +75,25 @@ export default {
   },
   created() {
     this.getlistname();
-  },
-  beforeRouteEnter(to, from, next) {
-    //组件内路由守卫
-    //离开
-    // window.console.log("list beforeRouteEnter");
-    // window.console.log(to);
-    // window.console.log(from);
-    //简易版鉴权
-    let token = localStorage.getItem("token");
-    if (token) {
-      //如果有就可以进入
-      // window.console.log("通过，可以进入该路由");
-      next();
-    } else {
-      //没有就跳到登陆页
-      // window.console.log("跳到登陆页");
-      // this.push("/login");
-    }
   }
+  // beforeRouteEnter(to, from, next) {
+  //组件内路由守卫
+  //离开
+  // window.console.log("list beforeRouteEnter");
+  // window.console.log(to);
+  // window.console.log(from);
+  //简易版鉴权
+  // let token = localStorage.getItem("token");
+  // if (token) {
+  //如果有就可以进入
+  // window.console.log("通过，可以进入该路由");
+  //   next();
+  // } else {
+  //没有就跳到登陆页
+  // window.console.log("跳到登陆页");
+  // this.push("/login");
+  // }
+  // }
 };
 </script>
 <style lang="scss">

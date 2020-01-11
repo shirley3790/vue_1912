@@ -16,6 +16,7 @@ import List2 from '../pages/list2';
 import Details from '../pages/details';
 import Reg from '../pages/reg';
 import Login from '../pages/login';
+import axios from 'axios';
 
 // 4. 实例化router并配置参数:路由规则
 let router = new VueRouter({
@@ -44,13 +45,16 @@ let router = new VueRouter({
         {
             name: 'list',
             path: '/list',
-            component: List
+            component: List,
+            beforeEnter() {
+
+            }
         }, {
             name: 'mine',
             path: '/mine',
             component: Mine,
             meta: {
-                ispower: true //进入个人中心需要鉴权
+                ispower: false //进入个人中心需要鉴权
             }
         },
         {
@@ -83,17 +87,22 @@ let router = new VueRouter({
 });
 
 //全局的路由守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     // window.console.log("全局的守卫 beforeEach");
-    window.console.log(to);//to就是你要进入的路由
-    window.console.log(from);//from就是要离开的路由
+    // window.console.log(to);//to就是你要进入的路由
+    // window.console.log(from);//from就是要离开的路由
     //在这里做路由守卫比较好：因为每一个路由切换的时候都会调用这个路由钩子，只需要一次性做好鉴权，所有需要鉴权的页面都有效果,但是要配合路由规则里面的元信息：meta实现
     if (to.meta.ispower) {
         //需要鉴权
         //获取token
         let token = localStorage.getItem('token');
+        let { data } = await axios.get("http://localhost:1920/users/verify", {
+            params: {
+                token
+            }
+        });
         //把token发送给后端验证：token无篡改且未失效
-        if (token) {
+        if (data.type) {
             window.console.log('已登录可以进入该路由')
             next();
         } else {
@@ -106,6 +115,8 @@ router.beforeEach((to, from, next) => {
     }
 
 });
+
+
 
 // 4.导出路由
 
