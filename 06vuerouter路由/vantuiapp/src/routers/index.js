@@ -42,42 +42,36 @@ let router = new VueRouter({
                 ispower: true //进入购物车需要鉴权
             }
         },
-        {
+        {//一级列表
             name: 'list',
             path: '/list',
-            component: List,
-            beforeEnter() {
-
-            }
-        }, {
+            component: List
+        }, {//个人中心
             name: 'mine',
             path: '/mine',
-            component: Mine,
-            meta: {
-                ispower: false //进入个人中心需要鉴权
-            }
+            component: Mine
         },
-        {
+        {//404
             name: 'other',
             path: '*',
             component: Is404
-        }, {
+        }, {//二级列表
             name: 'list2',
             path: '/list2',
             component: List2
-        }, {
+        }, {//详情页
             name: 'details',
             path: '/details',
             component: Details,
             meta: {//在details组件里面有个特殊的开关，元信息
                 isshow: true//详情页不需要显示菜单栏
             }
-        }, {
+        }, {//注册
             name: 'reg',
             path: '/reg',
             component: Reg
         },
-        {
+        {//登陆页
             name: 'login',
             path: '/login',
             component: Login

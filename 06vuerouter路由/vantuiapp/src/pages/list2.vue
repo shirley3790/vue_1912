@@ -38,7 +38,7 @@ export default {
           params: this.$route.query
         }
       );
-      window.console.log(data);
+      // window.console.log(data);
       this.list = data;
     },
     todetail(gid) {

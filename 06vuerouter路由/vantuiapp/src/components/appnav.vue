@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     change(name) {
-      window.console.log(666);
+      // window.console.log(666);
       this.$router.push({ name });
     }
   },

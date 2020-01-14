@@ -1,6 +1,6 @@
 <template>
   <van-nav-bar
-    title="标题"
+    :title="title[currunindex]"
     left-text="返回"
     left-arrow
     @click-left="onClickLeft"
@@ -9,6 +9,11 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      title: ["列表页", "详情页"]
+    };
+  },
   methods: {
     onClickLeft() {
       //   Toast("返回");
@@ -17,6 +22,18 @@ export default {
     onClickRight() {
       //   Toast("按钮");
     }
+  },
+  computed: {
+    currunindex() {
+      let num = 0;
+      if (this.$route.path == "/details") {
+        num = 1;
+      }
+      return num;
+    }
+  },
+  created() {
+    // window.console.log(this.$route.path);
   }
 };
 </script>

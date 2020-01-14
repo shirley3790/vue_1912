@@ -5,92 +5,91 @@
     <!-- 轮播图 -->
     <van-swipe indicator-color="white">
       <van-swipe-item>
-        <van-image src="https://img.yzcdn.cn/vant/apple-1.jpg" />
-      </van-swipe-item>
-      <van-swipe-item>
-        <van-image src="https://img.yzcdn.cn/vant/apple-2.jpg" />
-      </van-swipe-item>
-      <van-swipe-item>
-        <van-image src="https://img.yzcdn.cn/vant/apple-3.jpg" />
+        <van-image :src="goodinf.gurl" />
       </van-swipe-item>
     </van-swipe>
+
     <!-- 商品信息 -->
-    <h2>小苹果</h2>
-    <p>价格：10块钱</p>
+    <h2>{{goodinf.gname}}</h2>
+    <p>价格：{{ goodinf.price }}块钱</p>
     <p id="btns">
-      <input type="button" value="-" />
+      <input type="button" value="-" @click="cut" />
       <input type="text" v-model="num" />
-      <input type="button" value="+" />
+      <input type="button" value="+" @click="add" />
     </p>
     <!-- 提交购物车按钮组 -->
     <van-goods-action>
-      <van-goods-action-icon icon="home-o" text="客服" @click="onClickIcon" />
-      <van-goods-action-icon icon="cart-o" text="购物车" info="5" @click="onClickIcon" />
-      <van-goods-action-button type="warning" text="加入购物车" @click="onClickButton" />
-      <van-goods-action-button type="danger" text="立即购买" @click="onClickButton" />
+      <van-goods-action-icon icon="home-o" text="主页" @click="tohome" />
+      <van-goods-action-icon icon="cart-o" text="购物车" info="5" @click="tocart" />
+      <van-goods-action-button type="warning" text="加入购物车" @click="additem" />
+      <van-goods-action-button type="danger" text="立即购买" @click="tocart" />
     </van-goods-action>
-    <!-- 删除store数据 -->
-    <ul>
-      <li>
-        <a href="#" @click="remove">删除鼠标</a> &nbsp;&nbsp;&nbsp;
-        <a href="#" @click="add">添加数据</a>&nbsp;&nbsp;&nbsp;
-        <i>{{city}}</i>
-      </li>
-      <li></li>
-    </ul>
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
 import appBack from "../components/appback";
+// import {mapState,mapGetters,mapMutations,mapActions} from 'vuex';
+// import {mapActions} from 'vuex';
 export default {
   data() {
     return {
-      num: 1
+      num: 1,
+      goodinf: {}
     };
   },
   components: {
     appBack
   },
   methods: {
-    onClickIcon() {
-      //   Toast("点击图标");
+    tohome() {
+      //跳到首页
+      this.$router.push("/home");
     },
-    onClickButton() {
-      //   Toast("点击按钮");
+    tocart() {
+      // window.console.log(999);
+      //跳到购物车页面
+      this.$router.push("/cart");
     },
-    remove() {
-      //调用store的一个方法实现store.state数据的删除
-      this.$store.commit("removeItem", 0); //删除鼠标
+    async getdata(gid) {
+      //获取gid=xx商品信息
+      let { data } = await this.$axios.get("http://localhost:1920/goods/good", {
+        params: {
+          gid
+        }
+      });
+      this.goodinf = data[0];
+      window.console.log(this.goodinf);
+    },
+    cut() {
+      //减去数量
+      this.num--;
     },
     add() {
-      let good = {
-        id: 5,
-        name: "显卡",
-        price: 299
-      };
-      this.$store.commit("addItem", good);
+      //加数量
+      this.num++;
+    },
+    additem() {
+      //添加新商品gid, uid, gname, price, kucun, num
+      let good = { gid: 1, uid: 1, gname: "香蕉", price: 12, kucun: 5, num: 1 };
+      this.$store.dispatch("additem", good);
+    }
+  },
+  watch: {
+    //监听数据变化，数量最小是1，最大不超过库存量
+    num(val) {
+      if (val <= 1) {
+        this.num = 1;
+        window.console.log("最小值");
+      }
+      if (val >= this.goodinf.kucun) {
+        this.num = this.goodinf.kucun;
+        window.console.log("最大值");
+      }
     }
   },
   created() {
-    window.console.log(this.$route);
-
-    //获取$store里面的state的数据:如果是模块化的写法，记得要加模块化的名字 this.$store.state.模块名字.数据xx
-    let data = this.$store.state.cart.products;
-    window.console.log(data);
-
-    //获取$store里面的getter的数据
-    let num = this.$store.getters.total;
-    window.console.log("总数量是" + num);
-
-    //调用store里面的action是方法发送ajax获取数据
-    this.$store.dispatch("getlist", { cid: 1, cid3: 1 });
-  },
-  computed: {
-    // 映射state.cart.city的数据
-    ...mapState({
-      city: state => state.cart.city
-    })
+    let gid = this.$route.query.gid;
+    this.getdata(gid);
   }
 };
 </script>
