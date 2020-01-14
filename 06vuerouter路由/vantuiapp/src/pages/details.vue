@@ -70,8 +70,16 @@ export default {
     },
     additem() {
       //添加新商品gid, uid, gname, price, kucun, num
-      let good = { gid: 1, uid: 1, gname: "香蕉", price: 12, kucun: 5, num: 1 };
-      this.$store.dispatch("additem", good);
+      // window.console.log("加入购物车");
+      let good = {
+        gid: this.goodinf.gid2,
+        uid: 1,
+        gname: this.goodinf.gname,
+        price: this.goodinf.price,
+        kucun: this.goodinf.kucun,
+        num: this.num
+      };
+      this.$store.dispatch("additem", good); //添加商品数据
     }
   },
   watch: {

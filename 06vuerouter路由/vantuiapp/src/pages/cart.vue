@@ -61,6 +61,9 @@ export default {
     // this.$store.dispatch("getlist", { cid: 1, cid3: 1 });
     // let list = this.$store.state.cart.cartlist;
     // window.console.log(list);
+
+    //获取列表数据
+    this.$store.dispatch("getcartList"); //添加商品列表数据
   }
 };
 </script>
