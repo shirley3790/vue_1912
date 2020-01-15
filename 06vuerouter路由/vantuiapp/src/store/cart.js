@@ -5,20 +5,24 @@ const cart = {
         cartlist: []
     },
     getters: {//类似vue里面computed计算属性.但是只有get方法
-        // total(state) {
-        //     return state.products.length;
-        // }
+        total(state) {
+            return state.cartlist.length;
+        }
     },
     mutations: {//类似vue里面的methods方法
-        getcart(state, data) {
+        getcart(state, data) {//获取到的购物车数据放到state
             state.cartlist = data;
+        },
+        additem(state, data) {//添加商品
+            state.cartlist.push(data);
+        },
+        updateitem(state, data) {//修改商品数据
+            state.cartlist.forEach(item => {
+                if (item.gid == data.id && item.uid == data.uid) {
+                    item.num = data.num;
+                }
+            });
         }
-        // updateItem(state, { gid, uid, num }) {//修改数量
-
-        // },
-        // addItem(state, good) {
-        //     state.cartlist.push(good);
-        // }
     },
     actions: {//类似vue里面的methods方法,里面的代码是异步的方法
         async additem(contex, good) {
@@ -41,8 +45,11 @@ const cart = {
                 let { data } = await axios.post('http://localhost:1920/goods/good', {
                     gid, uid, gname, price, kucun, num
                 });
-
+                // window.console.log(data);
+                //添加的新数据也放到state里面
+                contex.commit('additem', good);
                 return data;
+
             } else {
                 //存在，修改数量
                 let kucun = data1[0].kucun;
@@ -58,14 +65,12 @@ const cart = {
                 let { data } = await axios.put('http://localhost:1920/goods/good', {
                     gid, uid, num
                 });
-
+                // window.console.log(data);
+                contex.commit('updateitem', { gid, uid, num });//修改数量
                 return data;
             }
-
-
-
         },
-        async getcartList(contex) {
+        async getcartList(contex) {//获取购物车数据放到state里面
             window.console.log('购物车数据');
             let { data } = await axios.get('http://localhost:1920/goods/cartlist');
             contex.commit('getcart', data);

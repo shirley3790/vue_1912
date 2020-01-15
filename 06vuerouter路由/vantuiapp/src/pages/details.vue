@@ -20,7 +20,7 @@
     <!-- 提交购物车按钮组 -->
     <van-goods-action>
       <van-goods-action-icon icon="home-o" text="主页" @click="tohome" />
-      <van-goods-action-icon icon="cart-o" text="购物车" info="5" @click="tocart" />
+      <van-goods-action-icon icon="cart-o" text="购物车" :info="totalNum" @click="tocart" />
       <van-goods-action-button type="warning" text="加入购物车" @click="additem" />
       <van-goods-action-button type="danger" text="立即购买" @click="tocart" />
     </van-goods-action>
@@ -40,6 +40,13 @@ export default {
   components: {
     appBack
   },
+  computed: {
+    totalNum() {
+      // window.console.log("购物车总数量");
+      // window.console.log(this.$store.getters.total);
+      return this.$store.getters.total;
+    }
+  },
   methods: {
     tohome() {
       //跳到首页
@@ -58,7 +65,7 @@ export default {
         }
       });
       this.goodinf = data[0];
-      window.console.log(this.goodinf);
+      // window.console.log(this.goodinf);
     },
     cut() {
       //减去数量
@@ -87,11 +94,11 @@ export default {
     num(val) {
       if (val <= 1) {
         this.num = 1;
-        window.console.log("最小值");
+        // window.console.log("最小值");
       }
       if (val >= this.goodinf.kucun) {
         this.num = this.goodinf.kucun;
-        window.console.log("最大值");
+        // window.console.log("最大值");
       }
     }
   },

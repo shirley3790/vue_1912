@@ -37,7 +37,7 @@ export default {
           name: "cart",
           icon: "shopping-cart-o",
           tex: "购物车",
-          info: "10"
+          info: ""
         },
         {
           name: "mine",
@@ -49,10 +49,12 @@ export default {
       // isok: true
     };
   },
+
   methods: {
     change(name) {
       // window.console.log(666);
       this.$router.push({ name });
+      this.menus[2].info = this.$store.getters.total; //点击切换组件的时候也获取购物车总条数
     }
   },
   created() {
@@ -70,6 +72,13 @@ export default {
     // } else {
     //   this.isok = true;
     // }
+
+    //获取列表数据
+    this.$store.dispatch("getcartList"); //添加商品列表数据
+
+    //购物车总数量
+    // window.console.log(this.$store.getters.total);
+    this.menus[2].info = this.$store.getters.total;
   }
 };
 </script>
