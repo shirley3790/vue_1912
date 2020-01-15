@@ -27,9 +27,11 @@ const cart = {
     actions: {//类似vue里面的methods方法,里面的代码是异步的方法
         async additem(contex, good) {
             //发送ajax，加入购物车
-            let { gid, uid, gname, price, kucun, num } = good;
+            // let { gid, uid, gname, price, kucun, num, gurl } = good;
+            let { gid, uid, num } = good;
             // let { gid, uid } = good;
-            // window.console.log('加入', gid + ', ', + uid);
+            // window.console.log('加入', gid + ', ', + uid, gurl);
+
             //发送ajax，查询是否存在某商品
             let { data: data1 } = await axios.get('http://localhost:1920/goods/goodcart', {
                 params: {
@@ -37,16 +39,16 @@ const cart = {
                     uid
                 }
             });
-            // window.console.log(data1);
+            // window.console.log(good);
+            // window.console.log(data1.length);
             if (data1.length == 0) {
                 //不存在，可以添加新商品
                 // window.console.log('不存在，可以添加新商品');
 
-                let { data } = await axios.post('http://localhost:1920/goods/good', {
-                    gid, uid, gname, price, kucun, num
-                });
+                let { data } = await axios.post('http://localhost:1920/goods/good', good);
                 // window.console.log(data);
-                //添加的新数据也放到state里面
+                // window.console.log('不存在，可以添加新商品2');
+                //添加的新数据也放到state里面 
                 contex.commit('additem', good);
                 return data;
 
@@ -71,9 +73,17 @@ const cart = {
             }
         },
         async getcartList(contex) {//获取购物车数据放到state里面
-            window.console.log('购物车数据');
+            // window.console.log('购物车数据');
             let { data } = await axios.get('http://localhost:1920/goods/cartlist');
             contex.commit('getcart', data);
+        },
+        async updategood(contex, good) {//获取购物车数据放到state里面
+            let { gid, uid, num } = good;
+            let { data } = await axios.put('http://localhost:1920/goods/good', {
+                gid, uid, num
+            });
+            window.console.log(data);
+            contex.commit('updateitem', { gid, uid, num });//修改数量
         }
     }
 }

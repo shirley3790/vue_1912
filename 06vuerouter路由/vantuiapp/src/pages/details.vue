@@ -86,6 +86,9 @@ export default {
         kucun: this.goodinf.kucun,
         num: this.num
       };
+
+      window.console.log("要添加的数据");
+      window.console.log(good);
       this.$store.dispatch("additem", good); //添加商品数据
     }
   },

@@ -26,6 +26,10 @@ export default {
   components: {
     // HelloWorld
     appNav
+  },
+  created() {
+    //获取列表数据
+    this.$store.dispatch("getcartList"); //添加商品列表数据
   }
 };
 </script>

@@ -3,26 +3,26 @@
     <!-- 回到上一页 -->
     <app-back></app-back>
     <!-- 跳转页面 -->
-    <van-button type="primary">登陆</van-button>
+    <!-- <van-button type="primary">登陆</van-button> -->
     <!-- 商品列表 -->
     <div class="list">
-      <div class="item" v-for="item in 6" :key="item">
+      <div class="item" v-for="item in cartlist" :key="item.did">
         <van-card
-          num="2"
-          price="2.00"
+          :num="item.num"
+          :price="item.price"
           desc="描述信息"
-          title="商品标题"
+          :title="item.gname"
           thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
         >
-          <div slot="tags">
+          <!-- <div slot="tags">
             <van-tag plain type="danger">标签</van-tag>
             <van-tag plain type="danger">标签</van-tag>
-          </div>
+          </div>-->
           <div slot="footer">
             <p id="btns">
-              <input type="button" value="-" />
-              <input type="text" v-model="num" />
-              <input type="button" value="+" />
+              <input type="button" value="-" @click="cut" />
+              <input type="text" v-model="item.num" />
+              <input type="button" value="+" @click="add" />
             </p>
           </div>
         </van-card>
@@ -31,10 +31,10 @@
     <!-- 结算 -->
     <van-submit-bar :price="3050" button-text="提交订单" @submit="onSubmit">
       <van-checkbox v-model="checked">全选</van-checkbox>
-      <span slot="tip">
+      <!-- <span slot="tip">
         你的收货地址不支持同城送,
         <span>修改地址</span>
-      </span>
+      </span>-->
     </van-submit-bar>
   </div>
 </template>
@@ -45,11 +45,14 @@ export default {
   data() {
     return {
       checked: true,
-      num: 1
+      num: 1,
+      cartlist: []
     };
   },
   methods: {
-    onSubmit() {}
+    onSubmit() {},
+    add() {},
+    cut() {}
   },
   components: {
     appBack
@@ -62,7 +65,18 @@ export default {
     // let list = this.$store.state.cart.cartlist;
     // window.console.log(list);
 
-    
+    //获取列表数据
+    this.$store.dispatch("getcartList"); //添加商品列表数据
+    //获取数据列表
+    this.cartlist = this.$store.state.cart.cartlist;
+    // window.console.log(this.$store.state.cart.cartlist);
+    window.console.log(this.cartlist);
   }
 };
 </script>
+<style scoped>
+.list {
+  height: auto;
+  padding-bottom: 50px;
+}
+</style>
