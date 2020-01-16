@@ -7,16 +7,23 @@ const cart = {
     getters: {//类似vue里面computed计算属性.但是只有get方法
         total(state) {
             return state.cartlist.length;
+        },
+        money(state) {
+            let res = 0;
+            state.cartlist.forEach(item => {
+                res += item.price * item.num;
+            });
+            return res;
         }
     },
     mutations: {//类似vue里面的methods方法
         getcart(state, data) {//获取到的购物车数据放到state
             state.cartlist = data;
         },
-        additem(state, data) {//添加商品
+        additem(state, data) {//添加新商品到state中
             state.cartlist.push(data);
         },
-        updateitem(state, data) {//修改商品数据
+        updateitem(state, data) {//修改state中商品数据
             state.cartlist.forEach(item => {
                 if (item.gid == data.id && item.uid == data.uid) {
                     item.num = data.num;
@@ -72,12 +79,12 @@ const cart = {
                 return data;
             }
         },
-        async getcartList(contex) {//获取购物车数据放到state里面
+        async getcartList(contex) {//获取数据库中购物车数据放到state里面
             // window.console.log('购物车数据');
             let { data } = await axios.get('http://localhost:1920/goods/cartlist');
             contex.commit('getcart', data);
         },
-        async updategood(contex, good) {//获取购物车数据放到state里面
+        async updategood(contex, good) {//修改数据库的数量
             let { gid, uid, num } = good;
             let { data } = await axios.put('http://localhost:1920/goods/good', {
                 gid, uid, num

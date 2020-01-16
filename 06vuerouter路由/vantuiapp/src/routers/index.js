@@ -97,11 +97,12 @@ router.beforeEach(async (to, from, next) => {
         });
         //把token发送给后端验证：token无篡改且未失效
         if (data.type) {
-            window.console.log('已登录可以进入该路由')
+            // window.console.log('已登录可以进入该路由')
             next();
         } else {
             //没有权限就跳转到登陆页并且把刚才想进入的路由路径给到登陆页，等登录成功可以回到该路由
-            router.push({ path: '/login', targeturl: to.path });
+            router.push({ path: '/login');
+            localStorage.setItem('targeturl', to.path);
         }
     } else {
         //不需要鉴权

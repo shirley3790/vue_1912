@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div v-if="istrue">
+    <div v-show="!istrue">
       <van-button type="primary" @click="toreg">注册</van-button>
       <van-button type="info" @click="tologin">登陆</van-button>
     </div>
-    <van-button v-else type="info" @click="tologout">退出</van-button>
+    <van-button v-show="istrue" type="info" @click="tologout">退出</van-button>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      istrue: true
+      istrue: false //初始：显示登陆 false null，点击登陆后：显示退出 true
     };
   },
   methods: {
@@ -24,7 +24,7 @@ export default {
     tologout() {
       //退出：删除token
       this.$store.commit("logout");
-      this.istrue = true;
+      this.istrue = false;
     }
   },
   created() {
@@ -36,9 +36,9 @@ export default {
     //   }
     // });
     this.$store.dispatch("verify");
-    let isok = this.$store.state.token.isok;
-    // window.console.log(isok);
-    this.istrue = !isok;
+    let isok = Boolean(localStorage.getItem("isok"));
+    window.console.log(isok);
+    this.istrue = isok;
     // if (data.type) {
     //   //校验成功，把istrue改成false
     //   this.istrue = false;

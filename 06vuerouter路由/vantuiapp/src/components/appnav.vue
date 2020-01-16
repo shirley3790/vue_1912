@@ -10,9 +10,11 @@
       v-for="item in menus"
       :key="item.name"
       :icon="item.icon"
-      :info="item.info"
+      :info="item.name == 'cart' ? total : ''"
       @click="change(item.name)"
     >{{item.tex}}</van-tabbar-item>
+
+    <!-- <van-tabbar-item key="home" icon="home-o" @click="change('home')">主页</van-tabbar-item> -->
   </van-tabbar>
 </template>
 <script>
@@ -49,12 +51,19 @@ export default {
       // isok: true
     };
   },
+  computed: {
+    total() {
+      //购物车总数量
+      // window.console.log("底部数据");
+      // window.console.log(this.$store.state.cart.cartlist);
+      return this.$store.state.cart.cartlist.length;
+    }
+  },
 
   methods: {
     change(name) {
       // window.console.log(666);
       this.$router.push({ name });
-      this.menus[2].info = this.$store.getters.total; //点击切换组件的时候也获取购物车总条数
     }
   },
   created() {
@@ -72,13 +81,15 @@ export default {
     // } else {
     //   this.isok = true;
     // }
-
     //获取列表数据
     this.$store.dispatch("getcartList"); //添加商品列表数据
 
     //购物车总数量
     // window.console.log(this.$store.getters.total);
-    this.menus[2].info = this.$store.getters.total;
+    // this.menus[2].info = this.$store.state.cart.cartlist.length;
+  },
+  mounted() {
+    // this.menus[2].info = this.$store.getters.total; //点击切换组件的时候也获取购物车总条数
   }
 };
 </script>

@@ -36,6 +36,10 @@ export default {
     // window.console.log(to); //去哪
     // window.console.log(from); //从哪里切走
     next(); //进入下一个钩子
+  },
+  created() {
+    //获取列表数据
+    this.$store.dispatch("getcartList"); //添加商品列表数据
   }
 };
 </script>

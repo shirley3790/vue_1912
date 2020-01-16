@@ -5,31 +5,33 @@
     <!-- 跳转页面 -->
     <!-- <van-button type="primary">登陆</van-button> -->
     <!-- 商品列表 -->
-    <div class="list">
-      <div class="item" v-for="item in cartlist" :key="item.did">
-        <van-card
-          :num="item.num"
-          :price="item.price"
-          desc="描述信息"
-          :title="item.gname"
-          thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
-        >
-          <!-- <div slot="tags">
+    <keep-alive>
+      <div class="list">
+        <div class="item" v-for="(item,index) in cartlist" :key="item.did">
+          <van-card
+            :num="item.num"
+            :price="item.price"
+            desc="描述信息"
+            :title="item.gname"
+            thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
+          >
+            <!-- <div slot="tags">
             <van-tag plain type="danger">标签</van-tag>
             <van-tag plain type="danger">标签</van-tag>
-          </div>-->
-          <div slot="footer">
-            <p id="btns">
-              <input type="button" value="-" @click="cut" />
-              <input type="text" v-model="item.num" />
-              <input type="button" value="+" @click="add" />
-            </p>
-          </div>
-        </van-card>
+            </div>-->
+            <div slot="footer">
+              <p id="btns">
+                <input type="button" value="-" @click="cut(item,index)" />
+                <input type="text" v-model="item.num" />
+                <input type="button" value="+" @click="add(item,index)" />
+              </p>
+            </div>
+          </van-card>
+        </div>
       </div>
-    </div>
+    </keep-alive>
     <!-- 结算 -->
-    <van-submit-bar :price="3050" button-text="提交订单" @submit="onSubmit">
+    <van-submit-bar :price="totalNum" button-text="提交订单" @submit="onSubmit">
       <van-checkbox v-model="checked">全选</van-checkbox>
       <!-- <span slot="tip">
         你的收货地址不支持同城送,
@@ -46,13 +48,40 @@ export default {
     return {
       checked: true,
       num: 1,
-      cartlist: []
+      cartlist: [],
+      totalNum: ""
     };
   },
   methods: {
     onSubmit() {},
-    add() {},
-    cut() {}
+    add(item, index) {
+      // window.console.log(item);
+      // window.console.log(index);
+      if (item.num < item.kucun) {
+        this.cartlist[index].num++;
+        let good = {
+          gid: item.gid,
+          uid: item.uid,
+          num: this.cartlist[index].num
+        };
+        this.$store.dispatch("updategood", good);
+      } else {
+        window.console.log("达到库存量");
+      }
+    },
+    cut(item, index) {
+      if (item.num > 1) {
+        this.cartlist[index].num--;
+        let good = {
+          gid: item.gid,
+          uid: item.uid,
+          num: this.cartlist[index].num
+        };
+        this.$store.dispatch("updategood", good);
+      } else {
+        window.console.log("最少买一份");
+      }
+    }
   },
   components: {
     appBack
@@ -71,6 +100,23 @@ export default {
     this.cartlist = this.$store.state.cart.cartlist;
     // window.console.log(this.$store.state.cart.cartlist);
     window.console.log(this.cartlist);
+
+    this.totalNum = this.$store.getters.money * 100;
+  },
+  watch: {
+    cartlist: {
+      handler(newval) {
+        window.console.log("变了");
+        window.console.log(newval);
+        let res = 0;
+        newval.forEach(item => {
+          res += item.price * item.num;
+        });
+        this.totalNum = res * 100;
+      },
+      immediate: true, //最初绑定的时候 立即执行监听
+      deep: true // 深度监听
+    }
   }
 };
 </script>

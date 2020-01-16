@@ -1,8 +1,7 @@
 import axios from 'axios';
 let token = {
     state: {//存放数据
-        name: '',
-        isok: true
+        name: ''
     },
     mutations: {
         login(state, { name, token }) {//登陆成功
@@ -12,11 +11,14 @@ let token = {
             }
             //存token
             localStorage.setItem("token", token);
+            localStorage.setItem("isok", true);
+
         },
         logout(state) {
             //登出
             state.name = '';
             localStorage.removeItem("token");
+            localStorage.removeItem("isok", false);
         }
     },
     actions: {
@@ -31,11 +33,11 @@ let token = {
                 });
                 if (data.type) {
                     //成功
-                    contex.state.isok = true;
+                    // contex.state.isok = true;
                 } else {
                     //失败
                     contex.commit('logout');
-                    contex.state.isok = false;
+                    // contex.state.isok = false;
                 }
             }
         }
