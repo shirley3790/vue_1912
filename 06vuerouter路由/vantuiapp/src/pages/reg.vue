@@ -50,23 +50,28 @@ export default {
     },
     async reg() {
       //注册功能
-      if (this.username && this.psw) {
-        let { data } = await this.$axios.post(
-          "http://localhost:1920/users/reg",
-          {
-            name: this.username,
-            password: this.psw
+      if (this.isok) {
+        if (this.username && this.psw) {
+          let { data } = await this.$axios.post(
+            "http://localhost:1920/users/reg",
+            {
+              name: this.username,
+              password: this.psw
+            }
+          );
+          // window.console.log(data);
+          if (data.type) {
+            //注册成功跳转到登陆页把用户名带过去
+            this.$router.push({
+              name: "login",
+              query: { name: this.username }
+            });
+          } else {
+            alert("注册失败");
           }
-        );
-        // window.console.log(data);
-        if (data.type) {
-          //注册成功跳转到登陆页把用户名带过去
-          this.$router.push({ name: "login", query: { name: this.username } });
         } else {
-          alert("注册失败");
+          alert("请完善信息");
         }
-      } else {
-        alert("请完善信息");
       }
     }
   }

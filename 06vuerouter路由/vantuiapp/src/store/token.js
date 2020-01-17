@@ -19,6 +19,7 @@ let token = {
             state.name = '';
             localStorage.removeItem("token");
             localStorage.removeItem("isok", false);
+            localStorage.removeItem('targeturl');
         }
     },
     actions: {

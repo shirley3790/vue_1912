@@ -101,7 +101,7 @@ router.beforeEach(async (to, from, next) => {
             next();
         } else {
             //没有权限就跳转到登陆页并且把刚才想进入的路由路径给到登陆页，等登录成功可以回到该路由
-            router.push({ path: '/login');
+            router.push({ path: '/login' });
             localStorage.setItem('targeturl', to.path);
         }
     } else {

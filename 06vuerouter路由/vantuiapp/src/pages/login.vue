@@ -33,7 +33,7 @@ export default {
             }
           }
         );
-        // window.console.log(data);
+        window.console.log(data);
         if (data.type) {
           //登陆成功：如果有上一页，回到上一页，否则回到首页
           // localStorage.setItem("token", data.token);
@@ -41,7 +41,16 @@ export default {
             name: this.username,
             token: data.token
           });
-          this.$router.push("/home");
+          //获取本地的target，如果有，证明是从需要拦截的页面跳过来的，登陆成功就跳回拦截的页面
+          let target = localStorage.getItem("targeturl");
+          window.console.log("获取上一页路径");
+          window.console.log(target);
+
+          if (target) {
+            this.$router.push(target);
+          } else {
+            this.$router.push("/home");
+          }
         } else {
           alert("登陆失败");
         }

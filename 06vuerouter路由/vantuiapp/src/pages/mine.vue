@@ -37,7 +37,7 @@ export default {
     // });
     this.$store.dispatch("verify");
     let isok = Boolean(localStorage.getItem("isok"));
-    window.console.log(isok);
+    // window.console.log(isok);
     this.istrue = isok;
     // if (data.type) {
     //   //校验成功，把istrue改成false
