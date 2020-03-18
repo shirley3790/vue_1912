@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script type="text/javascript">
+    function getBrowserType() {
+        var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+        var browser = 'unknown';
+        if (userAgent.indexOf("IE") != -1) {//字符串含有IE字段，表明是IE浏览器，并且是高版本IE11+
+            browser = "IE";
+        } else if (userAgent.indexOf('Firefox') != -1) {//字符串含有Firefox字段，表明是火狐浏览器
+            browser = "Firefox";
+        } else if (userAgent.indexOf('OPR') != -1) {//Opera
+            browser = "Opera";
+        } else if (userAgent.indexOf('Chrome') != -1) {//Chrome
+            browser = "Chrome";
+        } else if (userAgent.indexOf('Safari') != -1) {//Safari
+            browser = "Safari";
+        } else if (userAgent.indexOf('Trident') != -1) {//IE内核，IE6、IE7、IE8（Trident 4.0）、IE9（Trident 5.0）、IE10（Trident 6.0）
+            browser = 'IE 11';
+        }
+        return browser;
+    }
+    var userAgent = getBrowserType();
+    console.log(userAgent);
+    document.write(userAgent)
+
+    cartList.splice(index,1);
+
+    location.href = 'xx.html?' + data;
+    
+</script>
+
+</html>
